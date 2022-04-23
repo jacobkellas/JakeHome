@@ -16,5 +16,5 @@
 </template>
 
 <script setup lang="ts">
-const secret: string = process.env.testSecret
+const secret: string = process.env.VUE_APP_TEST_SETTING
 </script>
