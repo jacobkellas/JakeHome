@@ -9,6 +9,7 @@
         <q-card-section>
           <div class="text-body1 text-center">Click on the demos above.</div>
           <div v-if="secret" class="text-body1 text-center">{{ secret }}</div>
+          <q-btn @click="handleEnv">Test</q-btn>
         </q-card-section>
       </q-card>
     </div>
@@ -17,4 +18,8 @@
 
 <script setup lang="ts">
 const secret: string = process.env.VUE_APP_TEST_SETTING
+
+function handleEnv(): void {
+  console.log(process.env)
+}
 </script>
