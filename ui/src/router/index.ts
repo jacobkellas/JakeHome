@@ -13,6 +13,14 @@ const routes = [
     name: 'VModel',
     component: VModel,
   },
+  {
+    path: '/authenticate',
+    name: 'Authenticate',
+    beforeEnter(): void {
+      location.href = '/.auth/login/aad'
+    },
+    component: Home,
+  },
 ]
 
 const router = createRouter({
