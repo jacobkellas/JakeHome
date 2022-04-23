@@ -1,41 +1,39 @@
 module.exports = {
-  root: true,
   env: {
-    node: true,
+    browser: true,
+    es6: true,
     'vue/setup-compiler-macros': true,
+    node: true,
   },
   extends: [
-    'plugin:vue/vue3-essential',
     'eslint:recommended',
-    'plugin:prettier/recommended',
-    'plugin:vue/base',
+    'plugin:vue/essential',
+    'plugin:@typescript-eslint/eslint-recommended',
+    '@vue/prettier',
   ],
-  parserOptions: {
-    parser: '@babel/eslint-parser',
+  globals: {
+    Atomics: 'readonly',
+    SharedArrayBuffer: 'readonly',
   },
+  parserOptions: {
+    ecmaVersion: 2018,
+    parser: '@typescript-eslint/parser',
+    sourceType: 'module',
+  },
+  plugins: ['vue', '@typescript-eslint'],
   rules: {
-    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-unused-vars': 'off',
+    'vue/multi-word-component-names': 0,
+    'vue/no-multiple-template-root': 'off',
+    'vue/script-setup-uses-vars': 'error',
+    '@typescript-eslint/no-unused-vars': 'error',
     'prettier/prettier': [
       'warn',
       {
         htmlWhitespaceSensitivity: 'strict',
         semi: false,
         singleQuote: true,
-        trailingComma: 'all',
+        trailingComma: 'es5',
       },
     ],
   },
-  overrides: [
-    {
-      files: [
-        '**/__tests__/*.{j,t}s?(x)',
-        '**/tests/unit/**/*.spec.{j,t}s?(x)',
-      ],
-      env: {
-        jest: true,
-      },
-    },
-  ],
 }
