@@ -26,6 +26,7 @@ module.exports = {
     'vue/no-multiple-template-root': 'off',
     'vue/script-setup-uses-vars': 'error',
     '@typescript-eslint/no-unused-vars': 'error',
+    'arrow-parens': ['error', 'always'],
     'prettier/prettier': [
       'warn',
       {
@@ -33,6 +34,7 @@ module.exports = {
         semi: false,
         singleQuote: true,
         trailingComma: 'es5',
+        arrowParens: 'always',
       },
     ],
   },

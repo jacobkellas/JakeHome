@@ -17,7 +17,7 @@ export default createStore({
     decrementCount: ({ commit }) => commit('decrementCount'),
   },
   getters: {
-    getCount: state => state.count,
+    getCount: (state) => state.count,
   },
   modules: {},
 })
