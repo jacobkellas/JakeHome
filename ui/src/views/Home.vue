@@ -10,6 +10,7 @@
           <div class="text-body1 text-center">Click on the demos above.</div>
           <div v-if="secret" class="text-body1 text-center">{{ secret }}</div>
           <q-btn @click="handleEnv">Test</q-btn>
+          <q-btn @click="handleFunction">Test Function</q-btn>
         </q-card-section>
       </q-card>
     </div>
@@ -21,5 +22,11 @@ const secret: string = process.env.VUE_APP_TEST_SETTING
 
 function handleEnv(): void {
   console.log(process.env)
+}
+async function handleFunction(): Promise<void> {
+  console.log('handling function')
+  await fetch('/functions/HttpTriggerWithOpenAPICSharp1?name="Jake"')
+    .then((res) => console.log(res))
+    .then((json) => console.log(json))
 }
 </script>
