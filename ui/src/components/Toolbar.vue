@@ -10,7 +10,7 @@
       Vue Playground
     </q-btn>
     <q-btn flat stretch label="V-Model Demo" @click="$router.push('/vmodel')" />
-    <a href="/authenticate">Login</a>
+    <a href="/.auth/login/aad">Login</a>
     <q-space />
     <q-btn
       flat
