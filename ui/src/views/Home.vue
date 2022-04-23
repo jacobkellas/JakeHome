@@ -25,7 +25,7 @@ function handleEnv(): void {
 }
 async function handleFunction(): Promise<void> {
   console.log('handling function')
-  await fetch('/functions/HttpTriggerWithOpenAPICSharp1?name="Jake"')
+  await fetch('/api/HttpTriggerWithOpenAPICSharp1?name="Jake"')
     .then((res) => console.log(res))
     .then((json) => console.log(json))
 }
