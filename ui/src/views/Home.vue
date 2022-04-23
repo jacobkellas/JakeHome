@@ -26,6 +26,9 @@ async function handleFunction(): Promise<void> {
   )
 }
 async function getUserInfo(): Promise<void> {
-  await fetch('/.auth/me').then((response) => console.log(response.json()))
+  const response = await fetch('/.auth/me')
+  console.log(response)
+  const payload = await response.json()
+  console.log(payload)
 }
 </script>
