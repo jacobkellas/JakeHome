@@ -7,11 +7,14 @@
         </q-card-section>
         <q-separator inset />
         <q-card-section>
-          <transition appear enter-active-class="animated fadeIn">
-            <div class="text-body1 text-center">Click on the demos above.</div>
-          </transition>
+          <div class="text-body1 text-center">Click on the demos above.</div>
+          <div v-if="secret" class="text-body1 text-center">{{ secret }}</div>
         </q-card-section>
       </q-card>
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+const secret: string = process.env.testSecret
+</script>
