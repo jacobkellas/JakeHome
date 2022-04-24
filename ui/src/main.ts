@@ -2,12 +2,12 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
-import store from './store'
+import { store, key } from './store'
 import { Quasar } from 'quasar'
 import quasarUserOptions from './quasar-user-options'
 
 createApp(App)
   .use(Quasar, quasarUserOptions)
-  .use(store)
+  .use(store, key)
   .use(router)
   .mount('#app')

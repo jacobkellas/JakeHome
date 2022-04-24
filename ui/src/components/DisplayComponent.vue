@@ -50,7 +50,7 @@
 
 <script setup lang="ts">
 import { reactive, computed } from 'vue'
-import { useStore } from 'vuex'
+import { useStore } from '@/store'
 import { InputModel } from '@/models'
 import InputComponentVmodel from '@/components/InputComponentVmodel.vue'
 import InputComponent from '@/components/InputComponent.vue'

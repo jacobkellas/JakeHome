@@ -4,5 +4,6 @@
       "route": "/api/*",
       "allowedRoles": ["jakehomereader"]
     }
-  ]
+  ],
+  "optionalClaims": ["name"]
 }
