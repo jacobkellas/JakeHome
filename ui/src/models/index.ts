@@ -12,6 +12,6 @@ export class UserInfo {
     public userDetails: number,
     public identityProvider: string,
     public userRoles: string[],
-    public claims?: object[]
+    public claims: object[]
   ) {}
 }
