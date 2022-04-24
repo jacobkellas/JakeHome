@@ -1,7 +1,7 @@
 <template>
   <q-layout view="hHh Lpr lFf">
     <q-header>
-      <Toolbar />
+      <Toolbar :isAuthenticated="isUserAuthenticated" />
     </q-header>
     <q-page-container>
       <router-view :key="$route.fullPath"></router-view>
@@ -11,4 +11,18 @@
 
 <script setup lang="ts">
 import Toolbar from '@/components/Toolbar.vue'
+import { onBeforeMount, computed, ref } from 'vue'
+import { authentication } from '@/composables/authentication'
+import { useStore } from '@/store'
+
+const { getUser, isAuthenticated } = authentication()
+const store = useStore()
+const isUserAuthenticated = ref(computed(() => isAuthenticated()))
+
+onBeforeMount(async () => {
+  const user = await getUser()
+  if (user) {
+    store.dispatch('updateUserInfo', user)
+  }
+})
 </script>
