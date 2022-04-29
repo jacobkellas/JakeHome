@@ -8,6 +8,7 @@ export interface State {
   isAuthenticated: boolean
   isAdmin: boolean
   message: string
+  darkMode: boolean
 }
 
 export const key: InjectionKey<Store<State>> = Symbol()
@@ -19,6 +20,7 @@ export const store = createStore<State>({
     isAuthenticated: false,
     isAdmin: false,
     message: 'Default Message',
+    darkMode: false,
   },
   getters: {
     getCount: (state): number => state.count,
@@ -26,6 +28,13 @@ export const store = createStore<State>({
     getIsAuthenticated: (state): boolean => state.isAuthenticated,
     getIsAdmin: (state): boolean => state.isAdmin,
     getMessage: (state): string => state.message,
+    getDarkMode: (state): boolean => {
+      const darkMode: string | null = localStorage.getItem(
+        'jake_home_dark_mode'
+      )
+
+      return darkMode ? darkMode === 'true' : state.darkMode
+    },
   },
   mutations: {
     incrementCount: (state): void => {
@@ -46,6 +55,9 @@ export const store = createStore<State>({
     setMessage(state, message: string): void {
       state.message = message
     },
+    setDarkMode(state, darkMode: boolean): void {
+      state.darkMode = darkMode
+    },
   },
   actions: {
     incrementCount: ({ commit }): void => commit('incrementCount'),
@@ -55,6 +67,10 @@ export const store = createStore<State>({
     },
     setMessage: ({ commit }, message: string): void =>
       commit('setMessage', message),
+    setDarkMode: ({ commit }, darkMode: boolean): void => {
+      localStorage.setItem('jake_home_dark_mode', JSON.stringify(darkMode))
+      commit('setDarkMode', darkMode)
+    },
   },
 })
 

@@ -41,15 +41,18 @@
 <script setup lang="ts">
 import { useQuasar } from 'quasar'
 import { authentication } from '@/composables/authentication'
+import { useStore } from '@/store'
 
 const props = defineProps<{
   isAuthenticated: boolean
 }>()
 
+const store = useStore()
 const $q = useQuasar()
 const { login, logout, isAdmin } = authentication()
 
 function toggleDark(): void {
   $q.dark.toggle()
+  store.dispatch('setDarkMode', $q.dark.isActive)
 }
 </script>
