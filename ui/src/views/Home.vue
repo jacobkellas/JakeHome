@@ -8,9 +8,6 @@
         <q-separator inset />
         <q-card-section>
           <div class="text-body1 text-center">Click on the demos above.</div>
-          <div class="text-body1 text-center"
-            >Update should happen automatically.</div
-          >
         </q-card-section>
       </q-card>
     </div>
