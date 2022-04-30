@@ -6,4 +6,9 @@ module.exports = {
     },
   },
   transpileDependencies: ['quasar'],
+  pwa: {
+    workboxOptions: {
+      skipWaiting: true,
+    },
+  },
 }
