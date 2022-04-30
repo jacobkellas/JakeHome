@@ -5,5 +5,8 @@ module.exports = {
       rtlSupport: false,
     },
   },
+  configureWebpack: {
+    devtool: 'source-map',
+  },
   transpileDependencies: ['quasar'],
 }
