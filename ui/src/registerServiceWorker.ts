@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 
 import { register } from 'register-service-worker'
+import { Notify } from 'quasar'
 
 if (process.env.NODE_ENV === 'production') {
   register(`${process.env.BASE_URL}service-worker.js`, {
@@ -20,6 +21,7 @@ if (process.env.NODE_ENV === 'production') {
       console.log('New content is downloading.')
     },
     updated() {
+      Notify.create('New content is available; please refresh.')
       console.log('New content is available; please refresh.')
     },
     offline() {
