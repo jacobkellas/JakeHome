@@ -1,23 +1,56 @@
 <template>
   <q-toolbar>
-    <q-btn
-      flat
-      stretch
-      size="lg"
-      class="text-weight-medium"
-      @click="$router.push('/')"
-    >
-      Vue Playground
-    </q-btn>
-    <q-btn flat stretch label="V-Model Demo" @click="$router.push('/vmodel')" />
-    <q-btn
-      v-if="isAdmin()"
-      flat
-      stretch
-      label="Admin"
-      @click="$router.push('/admin')"
-    />
+    <template v-if="!$q.platform.is.mobile">
+      <q-btn
+        flat
+        stretch
+        size="lg"
+        class="text-weight-medium"
+        @click="$router.push('/')"
+      >
+        Home
+      </q-btn>
+      <q-btn
+        flat
+        stretch
+        label="V-Model Demo"
+        @click="$router.push('/vmodel')"
+      />
+      <q-btn
+        v-if="isAdmin()"
+        flat
+        stretch
+        label="Admin"
+        @click="$router.push('/admin')"
+      />
+    </template>
+
+    <template v-if="$q.platform.is.mobile">
+      <q-btn flat round dense icon="menu">
+        <q-menu>
+          <q-list>
+            <q-item clickable v-close-popup @click="$router.push('/')">
+              <q-item-section>Home</q-item-section>
+            </q-item>
+            <q-item clickable v-close-popup @click="$router.push('/vmodel')">
+              <q-item-section>V-Model Demo</q-item-section>
+            </q-item>
+            <q-item
+              v-if="isAdmin()"
+              clickable
+              v-close-popup
+              @click="$router.push('/admin')"
+            >
+              <q-item-section>Admin</q-item-section>
+            </q-item>
+          </q-list>
+        </q-menu>
+      </q-btn>
+      <q-btn flat stretch size="md" @click="$router.push('/')"> Home </q-btn>
+    </template>
+
     <q-space />
+
     <q-btn
       v-if="!props.isAuthenticated"
       flat
@@ -29,6 +62,7 @@
       v-if="props.isAuthenticated"
       flat
       stretch
+      dense
       label="Logout"
       @click="logout"
     />
