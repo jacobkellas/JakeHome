@@ -8,9 +8,10 @@ let $wb: Workbox | null
 
 function alert() {
   Notify.create({
-    message: 'An update is available',
+    message: 'An update is available!',
     color: 'primary',
     closeBtn: true,
+    badgeTextColor: 'white',
     timeout: 0,
     actions: [
       {
