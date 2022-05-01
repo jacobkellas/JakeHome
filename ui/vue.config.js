@@ -15,8 +15,8 @@ module.exports = {
     msTileColor: '#000000',
     appleMobileWebAppCache: 'yes',
     appleMobileWebAppStatusBarStyle: '#000000',
-    workboxOptions: {
-      navigateFallback: '/index.html',
-    },
+    // workboxOptions: {
+    //   navigateFallback: '/index.html',
+    // },
   },
 }
