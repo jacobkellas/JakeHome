@@ -5,6 +5,7 @@ let wb: Workbox | null
 if ('serviceWorker' in navigator) {
   wb = new Workbox(`${process.env.BASE_URL}service-worker.js`)
   wb.addEventListener('controlling', () => {
+    console.log('reloading window')
     window.location.reload()
   })
   wb.register()
