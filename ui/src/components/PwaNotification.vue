@@ -10,7 +10,6 @@ function alert() {
   Notify.create({
     message: 'An update is available!',
     color: 'primary',
-    closeBtn: true,
     badgeTextColor: 'white',
     timeout: 0,
     actions: [
@@ -18,6 +17,11 @@ function alert() {
         label: 'Update',
         color: 'white',
         handler: async () => await $wb!.messageSW({ type: 'SKIP_WAITING' }),
+      },
+      {
+        label: 'Cancel',
+        color: 'white',
+        handler: () => {},
       },
     ],
   })
