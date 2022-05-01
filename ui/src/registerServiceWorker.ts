@@ -1,43 +1,16 @@
-/* eslint-disable no-console */
+import { Workbox } from 'workbox-window'
 
-import { register } from 'register-service-worker'
-import { Notify } from 'quasar'
+let wb: Workbox | null
 
-if (process.env.NODE_ENV === 'production') {
-  register(`${process.env.BASE_URL}service-worker.js`, {
-    ready() {
-      console.log(
-        'App is being served from cache by a service worker.\n' +
-          'For more details, visit https://goo.gl/AFskqB'
-      )
-    },
-    registered() {
-      console.log('Service worker has been registered.')
-    },
-    cached() {
-      console.log('Content has been cached for offline use.')
-    },
-    updatefound() {
-      console.log('New content is downloading.')
-    },
-    updated() {
-      console.log('New content is available; please refresh.')
-      Notify.create({
-        message: 'New content is available',
-        color: 'primary',
-        actions: [
-          { label: 'Refresh', handler: () => window.location.reload() },
-          { label: 'Dismiss', handler: () => {} },
-        ],
-      })
-    },
-    offline() {
-      console.log(
-        'No internet connection found. App is running in offline mode.'
-      )
-    },
-    error(error) {
-      console.error('Error during service worker registration:', error)
-    },
+if ('serviceWorker' in navigator) {
+  wb = new Workbox(`${process.env.BASE_URL}service-worker.js`)
+  console.log('registered new service worker')
+  wb.addEventListener('controlling', () => {
+    window.location.reload()
   })
+  wb.register()
+} else {
+  wb = null
 }
+
+export default wb
