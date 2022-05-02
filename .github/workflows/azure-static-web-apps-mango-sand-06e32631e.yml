@@ -8,19 +8,22 @@ on:
 jobs:
   get_current_version:
     steps:
-      -name: Get Current Version
+      - name: Get Current Version
+      runs-on: ubuntu-latest
       id: currentversion
       run: echo "::set-output name=currentversion::${{ secrets.APP_VERSION }}"
 
   get_current_date_job:
     steps:
-      -name: Get Current Date
+      - name: Get Current Date
+      runs-on: ubuntu-latest
       id: date
       run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
 
   get_build_number:
     steps:
-      -name: Get Build Number
+      - name: Get Build Number
+      runs-on: ubuntu-latest
       id: buildnumber
       run: echo "::set-output name=buildnumber::$(1)"
 
