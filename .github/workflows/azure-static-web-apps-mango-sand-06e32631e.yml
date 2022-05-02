@@ -11,21 +11,21 @@ jobs:
     steps:
       - name: Get Current Version
       id: currentversion
-      run: echo "::set-output name=currentversion::${{ secrets.APP_VERSION }}"
+      - run: echo "::set-output name=currentversion::${{ secrets.APP_VERSION }}"
 
   get_current_date_job:
     runs-on: ubuntu-latest
     steps:
       - name: Get Current Date
       id: date
-      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      - run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
 
   get_build_number:
     runs-on: ubuntu-latest
     steps:
       - name: Get Build Number
       id: buildnumber
-      run: echo "::set-output name=buildnumber::$(1)"
+      - run: echo "::set-output name=buildnumber::$(1)"
 
   replace_tokens:
     steps:
