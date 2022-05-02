@@ -45,7 +45,7 @@ jobs:
     - name: Setting up config file
       uses: BlobDevelopment/copy-and-replace-tokens@v1
       with:
-        source: 'ui/src/constants/app.ts'
+        source: './ui/src/constants/app.ts'
       env:
         VERSION: ${{ needs.get_current_date_job.outputs.date }}
       # - uses: cschleiden/replace-tokens@v1
