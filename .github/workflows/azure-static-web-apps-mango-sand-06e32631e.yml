@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: Get Current Date
         id: date
-        run: ::set-output name=date::$(date +'%Y-%m-%d')
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
       - name: Echo Current date
         id: echodate
         run: echo ${{ steps.date.outputs.date }}
