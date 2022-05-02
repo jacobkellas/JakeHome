@@ -20,7 +20,8 @@ jobs:
     steps:
       - name: Get Current Date
         id: date
-        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+        run: ::set-output name=date::$(date +'%Y-%m-%d')
+        run: echo ${{ steps.date.outputs.date }}
 
   get_build_number:
     runs-on: ubuntu-latest
