@@ -6,6 +6,9 @@
     <q-page-container>
       <router-view :key="$route.fullPath"></router-view>
     </q-page-container>
+    <q-footer>
+      <div class="text-body1 text-center">{{ VERSION }}</div>
+    </q-footer>
   </q-layout>
   <PwaNotification />
 </template>
@@ -17,6 +20,7 @@ import { useQuasar } from 'quasar'
 import { onBeforeMount, computed, ref } from 'vue'
 import { authentication } from '@/composables/authentication'
 import { useStore } from '@/store'
+import { VERSION } from '@/constants/app'
 
 const $q = useQuasar()
 const { getUser, isAuthenticated } = authentication()
