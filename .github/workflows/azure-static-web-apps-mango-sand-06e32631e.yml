@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Find And Replace Version
-        run: find **/src/constants/app.ts -type f -exec sed -i ''s/#{VERSION}#/${{ steps.date.outputs.date }}/g'' {} \;
+        run: find */src/constants/app.ts -type f -exec sed -i ''s/#{VERSION}#/${{ steps.date.outputs.date }}/g'' {} \;
       # - uses: cschleiden/replace-tokens@v1
       #   with:
       #     files: '["**/*.ts"]'
