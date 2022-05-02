@@ -13,6 +13,8 @@ jobs:
       - name: Get Current Version
         id: currentversion
         run: echo "::set-output name=currentversion::${{ secrets.APP_VERSION }}"
+      - name: Echo Current Version
+        run: echo ${{ steps.currentversion.outputs.currentversion }}
 
   get_current_date_job:
     runs-on: ubuntu-latest
@@ -20,9 +22,8 @@ jobs:
     steps:
       - name: Get Current Date
         id: date
-        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+        run: echo "::set-output name=date::$(date +'%Y.%m.%d')"
       - name: Echo Current date
-        id: echodate
         run: echo ${{ steps.date.outputs.date }}
 
   get_build_number:
@@ -31,14 +32,16 @@ jobs:
     steps:
       - name: Get Build Number
         id: buildnumber
-        run: echo "::set-output name=buildnumber::$(1)"
+        run: echo "::set-output name=buildnumber::.1"
+      - name: Echo Build Number
+        run: echo ${{ steps.buildnumber.outputs.buildnumber }}
 
   replace_tokens:
     runs-on: ubuntu-latest
     steps:
       - uses: cschleiden/replace-tokens@v1
         with:
-          files: '["**/app.ts"]'
+          files: '["**/src/constants/app.ts"]'
         env:
           VERSION: v${{ steps.date.outputs.date }}.${{ steps.buildnumber.outputs.buildnumber }}
 
