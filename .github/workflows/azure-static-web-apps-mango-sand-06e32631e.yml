@@ -19,6 +19,8 @@ jobs:
   get_current_date_job:
     runs-on: ubuntu-latest
     name: Get Current Date Job
+    outputs:
+      date: ${{ steps.date.outputs.date }}
     steps:
       - name: Get Current Date
         id: date
@@ -32,15 +34,19 @@ jobs:
     steps:
       - name: Get Build Number
         id: buildnumber
-        run: echo "::set-output name=buildnumber::.1"
+        run: echo "::set-output name=buildnumber::1"
       - name: Echo Build Number
         run: echo ${{ steps.buildnumber.outputs.buildnumber }}
 
   replace_tokens:
     runs-on: ubuntu-latest
     steps:
-      - name: Find And Replace Version
-        run: find */ui/src/constants/app.ts -type f -exec sed -i ''s/#{VERSION}#/${{ steps.date.outputs.date }}/g'' {} \;
+    - name: Setting up config file
+      uses: BlobDevelopment/copy-and-replace-tokens@v1
+      with:
+        source: 'ui/src/constants/app.ts'
+      env:
+        VERSION: ${{ get_current_date_job.outputs.date }}
       # - uses: cschleiden/replace-tokens@v1
       #   with:
       #     files: '["**/*.ts"]'
