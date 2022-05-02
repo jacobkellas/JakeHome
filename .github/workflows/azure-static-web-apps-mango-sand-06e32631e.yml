@@ -39,6 +39,7 @@ jobs:
         run: echo ${{ steps.buildnumber.outputs.buildnumber }}
 
   replace_tokens:
+    needs: get_current_date_job
     runs-on: ubuntu-latest
     steps:
     - name: Setting up config file
@@ -46,7 +47,7 @@ jobs:
       with:
         source: 'ui/src/constants/app.ts'
       env:
-        VERSION: ${{ get_current_date_job.outputs.date }}
+        VERSION: ${{ needs.get_current_date_job.outputs.date }}
       # - uses: cschleiden/replace-tokens@v1
       #   with:
       #     files: '["**/*.ts"]'
