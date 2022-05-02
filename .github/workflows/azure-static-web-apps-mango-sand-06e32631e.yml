@@ -41,7 +41,7 @@ jobs:
     steps:
       - uses: cschleiden/replace-tokens@v1
         with:
-          files: '["**/src/constants/app.ts"]'
+          files: '["**/*.ts"]'
         env:
           VERSION: v${{ steps.date.outputs.date }}.${{ steps.buildnumber.outputs.buildnumber }}
 
