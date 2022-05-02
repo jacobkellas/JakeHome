@@ -8,32 +8,35 @@ on:
 jobs:
   get_current_version:
     runs-on: ubuntu-latest
+    name: Get Current Version Job
     steps:
-      - name: Get Current Version
+      name: Get Current Version
       id: currentversion
-      - run: echo "::set-output name=currentversion::${{ secrets.APP_VERSION }}"
+      run: echo "::set-output name=currentversion::${{ secrets.APP_VERSION }}"
 
   get_current_date_job:
     runs-on: ubuntu-latest
+    name: Get Current Date Job
     steps:
-      - name: Get Current Date
+      name: Get Current Date
       id: date
-      - run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
 
   get_build_number:
     runs-on: ubuntu-latest
+    name: Get Build Number Job
     steps:
-      - name: Get Build Number
+      name: Get Build Number
       id: buildnumber
-      - run: echo "::set-output name=buildnumber::$(1)"
+      run: echo "::set-output name=buildnumber::$(1)"
 
   replace_tokens:
     steps:
-      - uses: cschleiden/replace-tokens@v1
-        with:
-          files: '["**/app.ts"]'
-        env:
-          VERSION: v${{ steps.date.outputs.date }}.${{ steps.buildnumber.outputs.buildnumber }}
+      uses: cschleiden/replace-tokens@v1
+      with:
+        files: '["**/app.ts"]'
+      env:
+        VERSION: v${{ steps.date.outputs.date }}.${{ steps.buildnumber.outputs.buildnumber }}
 
   build_and_deploy_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
