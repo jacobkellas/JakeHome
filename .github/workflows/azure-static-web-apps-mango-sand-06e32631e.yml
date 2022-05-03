@@ -55,7 +55,7 @@ jobs:
     steps:
       - name: Get Version Number
         id: versionnumber
-        run: echo "Not the same date"
+        run: echo "Not the same date."
 
   build_and_deploy_job:
     needs: get_current_date_job
