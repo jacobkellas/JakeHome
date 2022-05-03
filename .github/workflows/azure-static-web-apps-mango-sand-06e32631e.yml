@@ -34,7 +34,7 @@ jobs:
     needs: [get_current_build_job, get_current_build_date_job]
     runs-on: ubuntu-latest
     name: Get Current Version Number Job
-    if: ${{ needs.get_current_build_date_job.outputs.currentbuilddate != $(date +'%Y.%m.%d') }}
+    if: ${{ needs.get_current_build_date_job.outputs.currentbuilddate != (date +'%Y.%m.%d') }}
     outputs:
       versionNumber: ${{ steps.versionnumber.outputs.versionnumber }}
     steps:
