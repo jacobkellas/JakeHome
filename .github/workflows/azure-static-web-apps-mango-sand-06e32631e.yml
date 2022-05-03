@@ -37,6 +37,9 @@ jobs:
       date: ${{ steps.date.outputs.date }}
     steps:
       - name: Get Current Date
+        uses: szenius/set-timezone@v1.0
+        with:
+          timezoneLinux: "America/Los_Angeles"
         id: date
         run: echo "::set-output name=date::$(date +'%Y.%m.%d %Z')"
       - name: Echo Current date
