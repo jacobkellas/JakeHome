@@ -29,7 +29,7 @@ jobs:
         id: currentbuild
         run: echo "::set-output name=currentbuild::${{ secrets.BUILD_NUMBER }}"
       - name: Echo Current Build
-        name: echo ${{ steps.currentbuild.outputs.currentbuild }}
+        run: echo ${{ steps.currentbuild.outputs.currentbuild }}
   
   get_current_version_number:
     needs: get_current_build_job
