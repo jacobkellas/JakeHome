@@ -49,13 +49,13 @@ jobs:
     needs: [get_current_build_job, get_current_build_date_job, get_current_date_job]
     runs-on: ubuntu-latest
     name: Get Current Version Number Job
-    if: needs.get_current_build_date_job.outputs.currentbuilddate != needs.get_current_date_job.outputs.date
+    if: ${{ secrets.BUILD_DATE }} != needs.get_current_date_job.outputs.date
     outputs:
       versionNumber: ${{ steps.versionnumber.outputs.versionnumber }}
     steps:
       - name: Get Version Number
         id: versionnumber
-        run: echo "${{ needs.get_current_build_date_job.outputs.currentbuilddate }} and ${{ needs.get_current_date_job.outputs.date }}"
+        run: echo "${{ secrets.BUILD_DATE }} and ${{ needs.get_current_date_job.outputs.date }}"
 
   build_and_deploy_job:
     needs: get_current_date_job
