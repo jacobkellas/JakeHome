@@ -39,7 +39,7 @@ jobs:
     steps:
       - name: Get Version Number
         id: versionnumber
-        if: ${{ needs.get_current_build_date_job != $(date +'%Y.%m.%d') }}
+        if: ${{ needs.get_current_build_date_job.outputs.currentBuildDate != needs.get_current_build_job.outputs.currentBuild }}
         run: echo "Not the same date"
   
   get_current_date_job:
