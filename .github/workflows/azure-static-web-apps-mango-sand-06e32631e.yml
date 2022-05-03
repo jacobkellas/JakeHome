@@ -6,16 +6,43 @@ on:
       - main
 
 jobs:
-  get_current_version:
+  get_current_build_date_job:
     runs-on: ubuntu-latest
-    name: Get Current Version Job
+    name: Get Current Build Date Job
+    outputs:
+      currentBuildDate: ${{ steps.currentbuilddate.outputs.currentbuilddate}}
     steps:
-      - name: Get Current Version
-        id: currentversion
-        run: echo "::set-output name=currentversion::${{ secrets.APP_VERSION }}"
-      - name: Echo Current Version
-        run: echo ${{ steps.currentversion.outputs.currentversion }}
+      - name: Get Build Date
+        id: currentbuilddate
+        run: echo "::set-output name=currentbuilddate::${{ secrets.BUILD_DATE }}"
+      - name: Echo Current Build Date
+        run: echo ${{ steps.currentbuilddate.outputs.currentbuilddate }}
 
+  get_current_build_job:
+    runs-on: ubuntu-latest
+    name: Get Current Build Job
+    outputs:
+      currentBuild: ${{ steps.currentbuild.outputs.currentbuild }}
+    steps:
+      - name: Get Build
+        id: currentbuild
+        run: echo "::set-output name=currentbuild::${{ secrets.BUILD_NUMBER }}"
+      - name: Echo Current Build
+        name: echo ${{ steps.currentbuild.outputs.currentbuild }}
+  
+  get_current_version_number:
+    needs: get_current_build_job
+    needs: get_current_build_date_job
+    runs-on: ubuntu-latest
+    name: Get Current Version Number Job
+    outputs:
+      versionNumber: ${{ steps.versionnumber.outputs.versionnumber }}
+    steps:
+      - name: Get Version Number
+        id: versionnumber
+        if: ${{ needs.get_current_build_date_job }} != $(date +'%Y.%m.%d')
+        run: echo "Not the same date"
+  
   get_current_date_job:
     runs-on: ubuntu-latest
     name: Get Current Date Job
@@ -27,29 +54,6 @@ jobs:
         run: echo "::set-output name=date::$(date +'%Y.%m.%d')"
       - name: Echo Current date
         run: echo ${{ steps.date.outputs.date }}
-
-  get_build_number:
-    runs-on: ubuntu-latest
-    name: Get Build Number Job
-    steps:
-      - name: Get Build Number
-        id: buildnumber
-        run: echo "::set-output name=buildnumber::1"
-      - name: Echo Build Number
-        run: echo ${{ steps.buildnumber.outputs.buildnumber }}
-
-  # replace_tokens:
-  #   needs: get_current_date_job
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - uses: actions/checkout@v2
-  #     with:
-  #       submodules: true
-  #   - uses: cschleiden/replace-tokens@v1
-  #     with:
-  #       files: '["**/*.ts"]'
-  #     env:
-  #       VERSION: ${{ needs.get_current_date_job.outputs.date }}
 
   build_and_deploy_job:
     needs: get_current_date_job
