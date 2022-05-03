@@ -6,14 +6,6 @@ on:
       - main
 
 jobs:
-  set_time_zone_job:
-    runs-on: ubuntu-latest
-    name: Set Time Zone
-    steps:
-    - uses: szenius/set-timezone@v1.0
-      with:
-        timezoneLinux: "America/Los_Angeles"
-
   get_current_build_date_job:
     runs-on: ubuntu-latest
     name: Get Current Build Date Job
@@ -44,6 +36,9 @@ jobs:
     outputs:
       date: ${{ steps.date.outputs.date }}
     steps:
+      - uses: szenius/set-timezone@v1.0
+        with:
+          timezoneLinux: "America/Los_Angeles"
       - name: Get Current Date
         id: date
         run: echo "::set-output name=date::$(date +'%Y.%m.%d %Z')"
