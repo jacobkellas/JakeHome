@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Get Build Date
         id: currentbuilddate
-        run: echo "::set-output name=currentbuilddate::Test"
+        run: echo "::set-output name=currentbuilddate::${{ secrets.BUILD_TEST }}"
       - name: Echo Current Build Date
         run: echo ${{ steps.currentbuilddate.outputs.currentbuilddate }}
 
@@ -41,7 +41,7 @@ jobs:
           timezoneLinux: "America/Los_Angeles"
       - name: Get Current Date
         id: date
-        run: echo "::set-output name=date::$(date +'%Y.%m.%d')"
+        run: echo "::set-output name=date::TEST"
       - name: Echo Current date
         run: echo ${{ steps.date.outputs.date }}
   
