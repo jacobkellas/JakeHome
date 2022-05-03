@@ -15,13 +15,13 @@ jobs:
           timezoneLinux: "America/Los_Angeles"
       - name: Get Build Date
         id: currentbuilddate
-        run: echo "::set-output name=currentbuilddate::${{ secrets.BUILD_DATE }}"
+        run: echo "::set-output name=currentbuilddate::${{ secrets.BUILD_TEST }}"
       - name: Get Build Number
         id: currentbuildnumber
         run: echo "::set-output name=currentbuild::${{ secrets.BUILD_NUMBER }}"
       - name: Get Current Date
         id: currentdate
-        run: echo "::set-output name=date::$(date +'%Y.%m.%d')"
+        run: echo "::set-output name=date::TEST"
       - name: Echo Conditional
         if: ${{ steps.currentbuilddate.outputs.currentbuilddate == steps.currentdate.output.date }}
         run: echo "Same Date!"
