@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Get Build Date
         id: currentbuilddate
-        run: echo "::set-output name=currentbuilddate::${{ secrets.BUILD_DATE }}"
+        run: echo "::set-output name=currentbuilddate::Test"
       - name: Echo Current Build Date
         run: echo ${{ steps.currentbuilddate.outputs.currentbuilddate }}
 
