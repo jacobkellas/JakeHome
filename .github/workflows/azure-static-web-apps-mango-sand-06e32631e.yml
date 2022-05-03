@@ -21,7 +21,7 @@ jobs:
         run: echo "::set-output name=currentbuild::${{ secrets.BUILD_NUMBER }}"
       - name: Get Current Date
         id: currentdate
-        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+        run: echo "::set-output name=date::$(date +'%Y.%m.%d')"
       - name: Echo variables
         run: echo ${{ steps.currentbuilddate.outputs.currentbuilddate }} and ${{ steps.currentdate.outputs.date }}
       - name: Echo Conditional
