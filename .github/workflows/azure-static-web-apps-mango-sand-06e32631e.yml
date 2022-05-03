@@ -29,19 +29,7 @@ jobs:
         run: echo "::set-output name=currentbuild::${{ secrets.BUILD_NUMBER }}"
       - name: Echo Current Build
         run: echo ${{ steps.currentbuild.outputs.currentbuild }}
-  
-  get_current_version_number:
-    needs: [get_current_build_job, get_current_build_date_job]
-    runs-on: ubuntu-latest
-    name: Get Current Version Number Job
-    if: ${{ needs.get_current_build_date_job.outputs.currentbuilddate != (date +'%Y.%m.%d') }}
-    outputs:
-      versionNumber: ${{ steps.versionnumber.outputs.versionnumber }}
-    steps:
-      - name: Get Version Number
-        id: versionnumber
-        run: echo "Not the same date"
-  
+
   get_current_date_job:
     runs-on: ubuntu-latest
     name: Get Current Date Job
@@ -53,6 +41,20 @@ jobs:
         run: echo "::set-output name=date::$(date +'%Y.%m.%d')"
       - name: Echo Current date
         run: echo ${{ steps.date.outputs.date }}
+  
+  get_current_version_number:
+    needs: [get_current_build_job, get_current_build_date_job, get_current_date_job]
+    runs-on: ubuntu-latest
+    name: Get Current Version Number Job
+    if: ${{ needs.get_current_build_date_job.outputs.currentbuilddate != needs.get_current_date_job.outputs.date }}
+    outputs:
+      versionNumber: ${{ steps.versionnumber.outputs.versionnumber }}
+    steps:
+      - name: Get Version Number
+        id: versionnumber
+        run: echo "Not the same date"
+  
+
 
   build_and_deploy_job:
     needs: get_current_date_job
