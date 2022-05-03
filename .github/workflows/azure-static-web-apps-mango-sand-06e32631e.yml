@@ -22,6 +22,8 @@ jobs:
       - name: Get Current Date
         id: currentdate
         run: echo "::set-output name=date::TEST"
+      - name: Echo variables
+        run: echo ${{ steps.currentbuilddate.outputs.currentbuilddate }} and ${{ steps.currentdate.output.date }}
       - name: Echo Conditional
         if: ${{ steps.currentbuilddate.outputs.currentbuilddate == steps.currentdate.output.date }}
         run: echo "Same Date!"
