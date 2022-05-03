@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Get Current Build Date Job
     outputs:
-      currentBuildDate: ${{ steps.currentbuilddate.outputs.currentbuilddate}}
+      currentbuilddate: ${{ steps.currentbuilddate.outputs.currentbuilddate}}
     steps:
       - name: Get Build Date
         id: currentbuilddate
@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Get Current Build Job
     outputs:
-      currentBuild: ${{ steps.currentbuild.outputs.currentbuild }}
+      currentbuild: ${{ steps.currentbuild.outputs.currentbuild }}
     steps:
       - name: Get Build
         id: currentbuild
@@ -34,7 +34,7 @@ jobs:
     needs: [get_current_build_job, get_current_build_date_job]
     runs-on: ubuntu-latest
     name: Get Current Version Number Job
-    if: ${{ 1 != 1 }}
+    if: ${{ needs.get_current_build_date_job.outputs.currentbuilddate != $(date +'%Y.%m.%d') }}
     outputs:
       versionNumber: ${{ steps.versionnumber.outputs.versionnumber }}
     steps:
