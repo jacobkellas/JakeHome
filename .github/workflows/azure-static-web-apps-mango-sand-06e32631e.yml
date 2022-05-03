@@ -19,7 +19,6 @@ jobs:
         run: echo ${{ steps.currentbuilddate.outputs.currentbuilddate }}
 
   get_current_build_job:
-    needs: get_current_build_date_job
     runs-on: ubuntu-latest
     name: Get Current Build Job
     outputs:
@@ -32,7 +31,7 @@ jobs:
         run: echo ${{ steps.currentbuild.outputs.currentbuild }}
   
   get_current_version_number:
-    needs: get_current_build_job
+    needs: [get_current_build_job, get_current_build_date_job]
     runs-on: ubuntu-latest
     name: Get Current Version Number Job
     outputs:
