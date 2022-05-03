@@ -41,7 +41,7 @@ jobs:
           timezoneLinux: "America/Los_Angeles"
       - name: Get Current Date
         id: date
-        run: echo "::set-output name=date::$(date +'%Y.%m.%d %Z')"
+        run: echo "::set-output name=date::$(date +'%Y.%m.%d')"
       - name: Echo Current date
         run: echo ${{ steps.date.outputs.date }}
   
