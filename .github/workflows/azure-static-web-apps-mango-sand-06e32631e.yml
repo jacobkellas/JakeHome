@@ -90,7 +90,7 @@ jobs:
         with:
           files: '["**/*.ts"]'
         env:
-          VERSION: TEST
+          VERSION: TEST_TEST
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
