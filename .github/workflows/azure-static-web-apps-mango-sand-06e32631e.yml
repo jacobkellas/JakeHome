@@ -15,13 +15,13 @@ jobs:
           timezoneLinux: "America/Los_Angeles"
       - name: Get Build Date
         id: currentbuilddate
-        run: echo "::set-output name=currentbuilddate::${{ secrets.BUILD_TEST }}"
+        run: echo "::set-output name=currentbuilddate::${{ secrets.BUILD_DATE }}"
       - name: Get Build Number
         id: currentbuildnumber
         run: echo "::set-output name=currentbuild::${{ secrets.BUILD_NUMBER }}"
       - name: Get Current Date
         id: currentdate
-        run: echo "::set-output name=date::TEST"
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
       - name: Echo variables
         run: echo ${{ steps.currentbuilddate.outputs.currentbuilddate }} and ${{ steps.currentdate.outputs.date }}
       - name: Echo Conditional
