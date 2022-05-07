@@ -33,7 +33,7 @@ jobs:
       - name: Generate Build Number
         id: buildnumber
         if: ${{ steps.currentbuilddate.outputs.currentbuilddate == steps.currentdate.outputs.date }}
-        run: echo "::set-output name=buildnumber::${{steps.currentbuildnumber.outputs.currentbuild + 1}}"
+        run: echo "::set-output name=buildnumber::${{steps.currentbuildnumber.outputs.currentbuild }}+1"
 
       - name: GitHub Login
         shell: bash
