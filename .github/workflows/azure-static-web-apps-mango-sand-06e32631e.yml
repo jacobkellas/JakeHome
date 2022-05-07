@@ -38,7 +38,7 @@ jobs:
           submodules: true
 
 ## Dates are the same
-      - name: Generate New Build Number
+      - name: Bump Up Build Number
         id: newbuildnumber
         shell: bash
         if: ${{ steps.currentbuilddate.outputs.currentbuilddate == steps.currentdate.outputs.date }}
