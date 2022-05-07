@@ -11,7 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     steps:
-      - uses: szenius/set-timezone@v1.0
+      - name: Set Time Zone
+        uses: szenius/set-timezone@v1.0
         with:
           timezoneLinux: "America/Los_Angeles"
       
@@ -31,44 +32,63 @@ jobs:
         shell: bash
         run: gh auth login --with-token <<< ${{ secrets.PAT }}
 
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+
+## Dates are the same
       - name: Generate New Build Number
         id: newbuildnumber
         shell: bash
         if: ${{ steps.currentbuilddate.outputs.currentbuilddate == steps.currentdate.outputs.date }}
         env:
           CURRENT_BUILD_NUMBER: ${{ steps.currentbuildnumber.outputs.currentbuild }}
-        run: | 
-          echo "::set-output name=buildnumber::$(($CURRENT_BUILD_NUMBER+1))"
-          
+        run: echo "::set-output name=newbuildnumber::$(($CURRENT_BUILD_NUMBER+1))"
 
-      - run: echo ${{ steps.newbuildnumber.outputs.buildnumber}}
+      - name: Set Build Number
+        id: setnewbuildnumber
+        shell: bash
+        if: ${{ steps.currentbuilddate.outputs.currentbuilddate == steps.currentdate.outputs.date }}
+        run: gh secret set BUILD_NUMBER --body ${{ steps.newbuildnumber.outputs.newbuildnumber }}
+      
+      - name: Output Version
+        id: newversion
+        if: ${{ steps.currentbuilddate.outputs.currentbuilddate == steps.currentdate.outputs.date }}
+        run: echo "::set-output name=version::v${{ steps.currentdate.outputs.date }}.${{ steps.newbuildnumber.outputs.newbuildnumber }}"
+      
+      - name: Replace Tokens
+        uses: cschleiden/replace-tokens@v1
+        if: ${{ steps.currentbuilddate.outputs.currentbuilddate == steps.currentdate.outputs.date }}
+        with:
+          files: '["**/*.ts"]'
+        env:
+          VERSION: ${{ steps.newversion.outputs.version }}
 
+## Date are not the same
       - name: Reset Build Number
         id: resetbuildnumber
         shell: bash
         if: ${{ steps.currentbuilddate.outputs.currentbuilddate != steps.currentdate.outputs.date }}
-        run: |
-          echo "::set-output name=buildnumber::1"
-          gh secret set BUILD_NUMBER --body 1 --repo ${{ github.repository }}
+        run: gh secret set BUILD_NUMBER --body 1 --repo ${{ github.repository }}
+
+      - name: Output Version
+        id: resetversion
+        if: ${{ steps.currentbuilddate.outputs.currentbuilddate != steps.currentdate.outputs.date }}
+        run: echo "::set-output name=version::v${{ steps.currentdate.outputs.date }}.1"
+
+      - name: Replace Tokens
+        uses: cschleiden/replace-tokens@v1
+        if: ${{ steps.currentbuilddate.outputs.currentbuilddate != steps.currentdate.outputs.date }}
+        with:
+          files: '["**/*.ts"]'
+        env:
+          VERSION: ${{ steps.resetversion.outputs.version }}
 
       - name: Set Build Date Secret
         shell: bash
         run: gh secret set BUILD_DATE --body ${{ steps.currentdate.outputs.date }} --repo ${{ github.repository }}
-      
-      - name: Output Version
-        id: version
-        run: echo "::set-output name=version::v${{ steps.currentdate.outputs.date }}.${{ steps.currentbuildnumber.outputs.currentbuild }}"
-      
-      - uses: actions/checkout@v2
-        with:
-          submodules: true
-      
-      - uses: cschleiden/replace-tokens@v1
-        with:
-          files: '["**/*.ts"]'
-        env:
-          VERSION: ${{ steps.version.outputs.version }}
-     
+           
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
