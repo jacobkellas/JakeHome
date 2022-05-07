@@ -27,22 +27,29 @@ jobs:
         id: currentdate
         run: echo "::set-output name=date::$(date +'%Y.%m.%d')"
       
-      - name: Generate Build Number
-        id: buildnumber
-        if: ${{ steps.currentbuilddate.outputs.currentbuilddate == steps.currentdate.outputs.date }}
-        run: echo "::set-output name=buildnumber::${{steps.currentbuildnumber.outputs.currentbuild }}+1"
-
       - name: GitHub Login
         shell: bash
         run: gh auth login --with-token <<< ${{ secrets.PAT }}
 
+      - name: Generate New Build Number
+        id: newbuildnumber
+        shell: bash
+        if: ${{ steps.currentbuilddate.outputs.currentbuilddate == steps.currentdate.outputs.date }}
+        run: | 
+          echo "::set-output name=buildnumber::$((${{steps.currentbuildnumber.outputs.currentbuild }}+1))"
+          gh secret set BUILD_NUMBER --body ${{ steps.newbuildnumber.outputs.buildnumber }} --repo ${{ github.repository }}
+
+      - name: Reset Build Number
+        id: resetbuildnumber
+        shell: bash
+        if: ${{ steps.currentbuilddate.outputs.currentbuilddate != steps.currentdate.outputs.date }}
+        run: |
+          echo "::set-output name=buildnumber::1"
+          gh secret set BUILD_NUMBER --body 1 --repo ${{ github.repository }}
+
       - name: Set Build Date Secret
         shell: bash
         run: gh secret set BUILD_DATE --body ${{ steps.currentdate.outputs.date }} --repo ${{ github.repository }}
-
-      - name: Set Build Number Secret
-        shell: bash
-        run: gh secret set BUILD_NUMBER --body ${{ steps.currentbuildnumber.outputs.currentbuild }} --repo ${{ github.repository }}
       
       - name: Output Version
         id: version
