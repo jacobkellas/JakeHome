@@ -22,3 +22,14 @@
     </div>
   </div>
 </template>
+
+<style scoped>
+a {
+  text-decoration: none;
+  color: #0000ff;
+}
+a:visited {
+  text-decoration: none;
+  color: #0000ff;
+}
+</style>
