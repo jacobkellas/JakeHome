@@ -27,9 +27,6 @@ jobs:
         id: currentdate
         run: echo "::set-output name=date::$(date +'%Y.%m.%d')"
       
-      - name: Echo variables
-        run: echo ${{ steps.currentbuilddate.outputs.currentbuilddate }} and ${{ steps.currentdate.outputs.date }}
-      
       - name: Generate Build Number
         id: buildnumber
         if: ${{ steps.currentbuilddate.outputs.currentbuilddate == steps.currentdate.outputs.date }}
