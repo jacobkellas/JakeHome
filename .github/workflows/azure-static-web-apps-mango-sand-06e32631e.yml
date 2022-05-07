@@ -38,8 +38,8 @@ jobs:
         env:
           CURRENT_BUILD_NUMBER: ${{ steps.currentbuildnumber.outputs.currentbuild }}
         run: | 
-          echo "::set-env name=BUILD_NUMBER::$(($CURRENT_BUILD_NUMBER+1))"
-          gh secret set BUILD_NUMBER --body $BUILD_NUMBER --repo ${{ github.repository }}
+          echo "::set-output name=buildnumber::$(($CURRENT_BUILD_NUMBER+1))"
+          gh secret set BUILD_NUMBER --body ${{ steps.newbuildnumber.outputs.buildnumber }} --repo ${{ github.repository }}
 
       - name: Reset Build Number
         id: resetbuildnumber
