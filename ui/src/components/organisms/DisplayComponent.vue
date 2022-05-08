@@ -52,8 +52,8 @@
 import { reactive, computed } from 'vue'
 import { useStore } from '@/store'
 import { InputModel } from '@/models'
-import InputComponentVmodel from '@/components/InputComponentVmodel.vue'
-import InputComponent from '@/components/InputComponent.vue'
+import InputComponentVmodel from '@/components/molecules/InputComponentVmodel.vue'
+import InputComponent from '@/components/molecules/InputComponent.vue'
 
 const store = useStore()
 const count = computed(() => store.getters.getCount)

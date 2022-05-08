@@ -16,13 +16,22 @@
         label="V-Model Demo"
         @click="$router.push('/vmodel')"
       />
-      <q-btn
+      <q-btn-dropdown
         v-if="isAdmin()"
         flat
         stretch
-        label="Admin"
-        @click="$router.push('/admin')"
-      />
+        label="Hayley and Jake Planner"
+      >
+        <q-item
+          clickable
+          v-close-popup
+          @click="$router.push('/planner/addactivity')"
+        >
+          <q-item-section>
+            <q-item-label>Add Activity</q-item-label>
+          </q-item-section>
+        </q-item>
+      </q-btn-dropdown>
     </template>
 
     <template v-if="$q.platform.is.mobile">
@@ -35,13 +44,21 @@
             <q-item clickable v-close-popup @click="$router.push('/vmodel')">
               <q-item-section>V-Model Demo</q-item-section>
             </q-item>
-            <q-item
-              v-if="isAdmin()"
-              clickable
-              v-close-popup
-              @click="$router.push('/admin')"
-            >
+            <q-item v-if="isAdmin()" clickable @click="$router.push('/admin')">
               <q-item-section>Admin</q-item-section>
+              <q-item-section side>
+                <q-icon name="keyboard_arrow_right" />
+              </q-item-section>
+              <q-menu>
+                <q-list>
+                  <q-item
+                    clickable
+                    v-close-popup
+                    @click="$router.push('/planner/addactivity')"
+                    >Add Activity</q-item
+                  >
+                </q-list>
+              </q-menu>
             </q-item>
           </q-list>
         </q-menu>

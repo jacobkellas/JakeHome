@@ -6,17 +6,17 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('@/views/Home.vue'),
+    component: () => import('@/components/templates/Home.vue'),
   },
   {
     path: '/vmodel',
     name: 'VModel',
-    component: () => import('@/views/VModel.vue'),
+    component: () => import('@/components/templates/VModel.vue'),
   },
   {
-    path: '/admin',
-    name: 'Admin',
-    component: () => import('@/views/Admin.vue'),
+    path: '/planner',
+    name: 'Planner',
+    component: () => import('@/components/templates/Planner.vue'),
     beforeEnter: async (_to, _from, next) => {
       if (store.getters.getIsAdmin) {
         next()
@@ -24,6 +24,14 @@ const routes: Array<RouteRecordRaw> = [
         next('/')
       }
     },
+    children: [
+      {
+        path: 'addactivity',
+        name: 'AddActivity',
+        component: () => import('@/components/templates/AddActivity.vue'),
+        props: true,
+      },
+    ],
   },
 ]
 

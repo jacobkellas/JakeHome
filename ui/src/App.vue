@@ -14,8 +14,8 @@
 </template>
 
 <script setup lang="ts">
-import Toolbar from '@/components/Toolbar.vue'
-import PwaNotification from '@/components/PwaNotification.vue'
+import Toolbar from '@/components/molecules/Toolbar.vue'
+import PwaNotification from '@/components/atoms/PwaNotification.vue'
 import { useQuasar } from 'quasar'
 import { onBeforeMount, computed, ref } from 'vue'
 import { authentication } from '@/composables/authentication'
