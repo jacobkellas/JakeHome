@@ -9,11 +9,6 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/components/templates/Home.vue'),
   },
   {
-    path: '/vmodel',
-    name: 'VModel',
-    component: () => import('@/components/templates/VModel.vue'),
-  },
-  {
     path: '/planner',
     name: 'Planner',
     component: () => import('@/components/templates/Planner.vue'),

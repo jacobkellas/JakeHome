@@ -1,4 +1,4 @@
-import { UserInfo } from '@/models/index'
+import { UserInfo } from '@/models/UserInfo'
 import { useStore } from '@/store'
 
 export function authentication() {

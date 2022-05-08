@@ -10,12 +10,6 @@
       >
         Home
       </q-btn>
-      <q-btn
-        flat
-        stretch
-        label="V-Model Demo"
-        @click="$router.push('/vmodel')"
-      />
       <q-btn-dropdown
         v-if="isAdmin()"
         flat
@@ -40,9 +34,6 @@
           <q-list>
             <q-item clickable v-close-popup @click="$router.push('/')">
               <q-item-section>Home</q-item-section>
-            </q-item>
-            <q-item clickable v-close-popup @click="$router.push('/vmodel')">
-              <q-item-section>V-Model Demo</q-item-section>
             </q-item>
             <q-item v-if="isAdmin()" clickable @click="$router.push('/admin')">
               <q-item-section>Admin</q-item-section>
