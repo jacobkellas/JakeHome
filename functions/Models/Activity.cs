@@ -12,7 +12,7 @@ public class Activity
 
     [JsonProperty(PropertyName = "description")]
     public string Description { get; set; }
-    
+
     [JsonProperty(PropertyName = "cost")]
-    public decimal Cost { get; set; }
+    public string Cost { get; set; }
 }

@@ -19,14 +19,18 @@ const routes: Array<RouteRecordRaw> = [
         next('/')
       }
     },
-    children: [
-      {
-        path: 'addactivity',
-        name: 'AddActivity',
-        component: () => import('@/components/templates/AddActivity.vue'),
-        props: true,
-      },
-    ],
+  },
+  {
+    path: '/activities',
+    name: 'Activities',
+    component: () => import('@/components/templates/Activities.vue'),
+    beforeEnter: async (_to, _from, next) => {
+      if (store.getters.getIsAdmin) {
+        next()
+      } else {
+        next('/')
+      }
+    },
   },
 ]
 

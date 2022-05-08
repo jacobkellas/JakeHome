@@ -16,13 +16,9 @@
         stretch
         label="Hayley and Jake Planner"
       >
-        <q-item
-          clickable
-          v-close-popup
-          @click="$router.push('/planner/addactivity')"
-        >
+        <q-item clickable v-close-popup @click="$router.push('/activities')">
           <q-item-section>
-            <q-item-label>Add Activity</q-item-label>
+            <q-item-label>Activities</q-item-label>
           </q-item-section>
         </q-item>
       </q-btn-dropdown>
