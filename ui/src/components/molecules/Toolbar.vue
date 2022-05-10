@@ -32,7 +32,7 @@
               <q-item-section>Home</q-item-section>
             </q-item>
             <q-item v-if="isAdmin()" clickable @click="$router.push('/admin')">
-              <q-item-section>Admin</q-item-section>
+              <q-item-section>Hayley and Jake Planner</q-item-section>
               <q-item-section side>
                 <q-icon name="keyboard_arrow_right" />
               </q-item-section>
@@ -41,8 +41,8 @@
                   <q-item
                     clickable
                     v-close-popup
-                    @click="$router.push('/planner/addactivity')"
-                    >Add Activity</q-item
+                    @click="$router.push('/activities')"
+                    >Activities</q-item
                   >
                 </q-list>
               </q-menu>

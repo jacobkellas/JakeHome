@@ -7,9 +7,11 @@ export function authentication() {
   function login(): void {
     window.location.href = '/.auth/login/aad'
   }
+
   function logout(): void {
     window.location.href = '/.auth/logout'
   }
+
   async function getUser(): Promise<UserInfo | null> {
     const response = await fetch('/.auth/me')
     const payload = await response.json()
@@ -25,9 +27,11 @@ export function authentication() {
       clientPrincipal.claims
     )
   }
+
   function isAuthenticated(): boolean {
     return store.getters.getIsAuthenticated
   }
+
   function isAdmin(): boolean {
     return store.getters.getIsAdmin
   }

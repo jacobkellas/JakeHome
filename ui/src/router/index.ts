@@ -9,18 +9,6 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/components/templates/Home.vue'),
   },
   {
-    path: '/planner',
-    name: 'Planner',
-    component: () => import('@/components/templates/Planner.vue'),
-    beforeEnter: async (_to, _from, next) => {
-      if (store.getters.getIsAdmin) {
-        next()
-      } else {
-        next('/')
-      }
-    },
-  },
-  {
     path: '/activities',
     name: 'Activities',
     component: () => import('@/components/templates/Activities.vue'),
